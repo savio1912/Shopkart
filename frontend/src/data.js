@@ -1,7 +1,7 @@
 const data = {
   products: [
     {
-      name: "Nikes Slim Shirt",
+      name: "Nike Slim Shirt",
       slug: "nike-slim-shirt",
       category: "Shirts",
       image: "/images/p1.jpg",
