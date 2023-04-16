@@ -9,7 +9,7 @@ const Rating = (props) => {
               ? "fa fa-star"
               : rating >= 0.5
               ? "fas fa-star-half"
-              : "far fa-star"
+              : "far fa-star-empty"
           }
         ></i>
       </span>
@@ -20,7 +20,7 @@ const Rating = (props) => {
               ? "fa fa-star"
               : rating >= 1.5
               ? "fa fa-star-half"
-              : "fa fa-star"
+              : "fa fa-star-empty"
           }
         ></i>
       </span>
@@ -31,7 +31,7 @@ const Rating = (props) => {
               ? "fa fa-star"
               : rating >= 2.5
               ? "fa fa-star-half"
-              : "fa fa-star"
+              : "fa fa-star-empty"
           }
         ></i>
       </span>
@@ -42,7 +42,7 @@ const Rating = (props) => {
               ? "fa fa-star"
               : rating >= 3.5
               ? "fa fa-star-half"
-              : "fa fa-star"
+              : "fa fa-star-empty"
           }
         ></i>
       </span>
@@ -53,10 +53,11 @@ const Rating = (props) => {
               ? "fa fa-star"
               : rating >= 4.5
               ? "fa fa-star-half"
-              : "fa fa-star"
+              : "fa fa-star-empty"
           }
         ></i>
       </span>
+      <span> Reviews {numReviews}</span>
     </div>
   );
 };

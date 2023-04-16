@@ -21,11 +21,11 @@ const HomeScreen = () => {
 
   return (
     <>
-      <h1>Product List</h1>
+      <h1>Featured Products</h1>
       <div className="products">
         <Row>
           {data.map((product) => (
-            <Col sm={6} md={4} lr={3} className="mb-3">
+            <Col sm={6} md={4} lg={3} className="mb-3">
               <Product product={product}></Product>
             </Col>
           ))}

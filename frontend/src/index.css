@@ -7,12 +7,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 .rating {
+  color: gold;
+}
+.btn-primary {
+  background-color: #f0c040;
+  color: #000000;
 }
 .site-container {
   min-height: 100vh;
 }
 main {
   flex: 1;
+}
+.productimage {
+  width: 100%;
+  max-width: 1000px;
+  height: 500px;
 }
 .products {
   display: flex;
