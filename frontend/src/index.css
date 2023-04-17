@@ -21,8 +21,9 @@ main {
 }
 .productimage {
   width: 100%;
-  max-width: 1000px;
+  max-width: 600px;
   height: 500px;
+  padding-left: 300px;
 }
 .products {
   display: flex;
@@ -40,4 +41,7 @@ main {
 }
 .product-details {
   padding: 10px;
+}
+.unordered-list {
+  list-style: none;
 }
