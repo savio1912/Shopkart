@@ -11,10 +11,20 @@ import { Store } from "../Store";
 import { Col } from "react-bootstrap";
 
 const ProductScreen = () => {
-  const { dispatch } = useContext(Store);
+  const { state, dispatch } = useContext(Store);
   const [data, setData] = useState({});
-  const increaseCart = () => {
-    dispatch({ type: "ADD_TO_CART", payload: { ...data, quantity: 1 } });
+  const addToCartHandler = async () => {
+    const existingItem = state.cart.cartItems.find(
+      (item) => item._id === data._id
+    );
+    const quantity = existingItem ? existingItem.quantity + 1 : 1;
+    const result = await axios.get(`/api/products/${data._id}`);
+    const product = result.data;
+    if (product.countInStock < quantity) {
+      window.alert("Sorry product is out of stock");
+      return;
+    }
+    dispatch({ type: "ADD_TO_CART", payload: { ...data, quantity } });
   };
   const params = useParams();
   const { slug } = params;
@@ -66,7 +76,7 @@ const ProductScreen = () => {
                 {data.countInStock >= 1 && (
                   <li>
                     <div className="d-grid">
-                      <Button variant="primary" onClick={increaseCart}>
+                      <Button variant="primary" onClick={addToCartHandler}>
                         Add to cart
                       </Button>
                     </div>
