@@ -30,6 +30,9 @@ main {
   flex-wrap: wrap;
   justify-content: center;
 }
+.img-thumbnail {
+  height: 80px;
+}
 .product {
   border: 1px solid black;
   margin: 16px;

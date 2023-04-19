@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Rating from "../components/Rating";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -11,6 +11,7 @@ import { Store } from "../Store";
 import { Col } from "react-bootstrap";
 
 const ProductScreen = () => {
+  const navigate = useNavigate();
   const { state, dispatch } = useContext(Store);
   const [data, setData] = useState({});
   const addToCartHandler = async () => {
@@ -25,6 +26,7 @@ const ProductScreen = () => {
       return;
     }
     dispatch({ type: "ADD_TO_CART", payload: { ...data, quantity } });
+    navigate("/cart");
   };
   const params = useParams();
   const { slug } = params;
