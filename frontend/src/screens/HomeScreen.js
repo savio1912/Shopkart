@@ -1,10 +1,12 @@
 import axios from "axios";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Product from "../components/Product";
 import { Helmet } from "react-helmet-async";
 import logger from "use-reducer-logger";
+import Loading from "../components/Loading";
+import ErrorMessage from "../components/ErrorMessage";
 const reducer = (state, action) => {
   switch (action.type) {
     case "FETCH_REQUEST":
@@ -47,9 +49,9 @@ const HomeScreen = () => {
       <div className="products">
         <Row>
           {loading ? (
-            <div>Loading....</div>
+            <Loading />
           ) : error ? (
-            <div>Error...</div>
+            <ErrorMessage varient="danger">{error}</ErrorMessage>
           ) : (
             products.map((product) => (
               <Col sm={6} md={4} lg={3} className="mb-3">
