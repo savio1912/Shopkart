@@ -50,7 +50,7 @@ const data = {
       image: "/images/p4.jpg",
       price: "$50",
       amount: 50,
-      countInStock: 10,
+      countInStock: 5,
       brand: "Nike",
       rating: 4.5,
       numReviews: 10,
