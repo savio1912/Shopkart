@@ -9,7 +9,7 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
 function CartScreen() {
-  const { state, dispatch } = useContext(Store);
+  const { state } = useContext(Store);
   let num = 0;
   let amt = 0;
 
