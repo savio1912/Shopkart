@@ -6,12 +6,29 @@ import { Helmet } from "react-helmet-async";
 import ErrorMessage from "../components/ErrorMessage";
 import { Card, Col, ListGroup, ListGroupItem, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function CartScreen() {
-  const { state } = useContext(Store);
+  const navigate = useNavigate();
+  const { state, dispatch } = useContext(Store);
   let num = 0;
   let amt = 0;
+
+  const updateCartHandler = async (product, quantity) => {
+    const { data } = await axios.get(`/api/products/${product._id}`);
+    if (data.countInStock < quantity) {
+      window.alert("Sorry product is out of stock");
+      return;
+    }
+    dispatch({ type: "ADD_TO_CART", payload: { ...product, quantity } });
+  };
+  const removeCartItem = (product) => {
+    dispatch({ type: "REMOVE_CART_ITEM", payload: product });
+  };
+  const checkOutHandler = () => {
+    navigate("/signin?redirect=/shipping");
+  };
 
   return (
     <div>
@@ -39,22 +56,36 @@ function CartScreen() {
                       <Link to={`/product/${item.slug}`}>{item.name}</Link>
                     </Col>
                     <Col md={3}>
-                      <Button variant="light" disabled={item.quantity === 1}>
+                      <Button
+                        onClick={() => {
+                          updateCartHandler(item, item.quantity - 1);
+                        }}
+                        variant="light"
+                        disabled={item.quantity === 1}
+                      >
                         <i className="fa-solid fa-minus-circle"></i>
                       </Button>
                       {"     "}
                       <span>{item.quantity}</span>
                       {"     "}
                       <Button
+                        onClick={() => {
+                          updateCartHandler(item, item.quantity + 1);
+                        }}
                         variant="light"
-                        disabled={item.quantity === item.coutnInStock}
+                        disabled={item.quantity === item.countInStock}
                       >
                         <i className="fa-solid fa-plus-circle"></i>
                       </Button>{" "}
                     </Col>
                     <Col md={3}>{item.price}</Col>
                     <Col md={2}>
-                      <Button variant="light">
+                      <Button
+                        variant="light"
+                        onClick={() => {
+                          removeCartItem(item);
+                        }}
+                      >
                         <i class="fa-solid fa-trash"></i>
                       </Button>
                     </Col>
@@ -84,6 +115,7 @@ function CartScreen() {
                 <ListGroupItem>
                   <div className="d-grid">
                     <Button
+                      onClick={checkOutHandler}
                       variant="primary"
                       disabled={state.cart.cartItems.length === 0}
                     >
