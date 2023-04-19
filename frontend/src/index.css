@@ -33,6 +33,9 @@ main {
 .img-thumbnail {
   height: 80px;
 }
+.small-container {
+  max-width: 600px;
+}
 .product {
   border: 1px solid black;
   margin: 16px;
