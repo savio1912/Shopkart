@@ -1,15 +1,21 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import Col from "react-bootstrap/esm/Col";
-import Row from "react-bootstrap/esm/Row";
+import { useContext, useEffect, useState } from "react";
+import Row from "react-bootstrap/Row";
 import { useParams } from "react-router-dom";
 import Rating from "../components/Rating";
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 import { Helmet } from "react-helmet-async";
+import { Store } from "../Store";
+import { Col } from "react-bootstrap";
 
 const ProductScreen = () => {
+  const { dispatch } = useContext(Store);
   const [data, setData] = useState({});
+  const increaseCart = () => {
+    dispatch({ type: "ADD_TO_CART", payload: { ...data, quantity: 1 } });
+  };
   const params = useParams();
   const { slug } = params;
   useEffect(() => {
@@ -45,7 +51,7 @@ const ProductScreen = () => {
           </ul>
         </Col>
         <Col sm={12} md={3} lg={3}>
-          <Card>
+          <Card className="card">
             <Card.Body>
               <ul className="unordered-list">
                 <li>Price: {data.price}</li>
@@ -57,6 +63,15 @@ const ProductScreen = () => {
                     <Badge bg="danger">Unavailable</Badge>
                   )}
                 </li>
+                {data.countInStock >= 1 && (
+                  <li>
+                    <div className="d-grid">
+                      <Button variant="primary" onClick={increaseCart}>
+                        Add to cart
+                      </Button>
+                    </div>
+                  </li>
+                )}
               </ul>
             </Card.Body>
           </Card>
